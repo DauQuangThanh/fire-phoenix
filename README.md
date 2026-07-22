@@ -69,7 +69,7 @@ You stay in charge of the *what* and the *why*. The agent handles most of the *h
 Install uv python package manager (https://docs.astral.sh/uv/getting-started/installation/)
 
 Install fire_phoenix framework:
-RUN: uv tool install --force fire_phoenix-0.31.2-py3-none-any.whl
+RUN: uv tool install --force fire_phoenix-0.32.0-py3-none-any.whl
 
 Initiate a project:
 RUN: fire-phoenix init <project-name>
