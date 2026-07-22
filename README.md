@@ -45,7 +45,7 @@
 
 ## Overview
 
-Fire Phoenix is a command-line installer that bootstraps projects for the full software development lifecycle. A single `fire-phoenix init` provisions 78 role-specific AI skills, 14 role-based custom subagents, and a deep customization layer of extensions, presets, and workflows into your project. `fire-phoenix init` scaffolds the L1-L4 IDD artefact hierarchy (`PRODUCT.md` / `STATUS.md` / `CLAUDE.md` / `specs/` / `contracts/` / `adr/` / `decisions.md`) and supports greenfield, brownfield, and migration projects first-class via `--archetype {greenfield,brownfield,migration}`. It also installs a governance guardrail + audit hook pack — a protected-path deny and a tool-call audit trail — into each selected AI tool's native hook config, on by default (see [Governance Hooks](docs/reference/governance-hooks.md); `adr/0043`).
+Fire Phoenix is a command-line installer that bootstraps projects for the full software development lifecycle. A single `fire-phoenix init` provisions 78 role-specific AI skills, 14 role-based custom subagents, and a deep customization layer of extensions, presets, and workflows into your project. `fire-phoenix init` scaffolds the L1-L4 IDD artefact hierarchy (`PRODUCT.md` / `STATUS.md` / `CLAUDE.md` / `specs/` / `contracts/` / `adr/` / `decisions.md`) and supports greenfield, brownfield, and migration projects first-class via `--archetype {greenfield,brownfield,migration}`. It also installs a governance guardrail + audit hook pack — a protected-path deny and a tool-call audit trail — into each selected AI tool's native hook config, on by default (see [Governance Hooks](docs/reference/governance-hooks.md)).
 
 The platform covers every delivery phase — requirements gathering, architecture and design, implementation, testing, code review, security review, operations, project management, and formal Waterfall deliverables — across both Agile and hybrid methodologies. It runs offline once installed, integrates with seven AI coding agents across CLI and IDE environments, and works consistently on macOS, Linux, and Windows.
 
@@ -65,12 +65,24 @@ You stay in charge of the *what* and the *why*. The agent handles most of the *h
 
 > **Important:** The only official, maintained Fire Phoenix packages are published from this GitHub repository. Packages of the same name on PyPI are **not** affiliated with this project. Always install directly from GitHub.
 
+```bash
+Install uv python package manager (https://docs.astral.sh/uv/getting-started/installation/)
+
+Install fire_phoenix framework:
+RUN: uv tool install --force fire_phoenix-0.31.2-py3-none-any.whl
+
+Initiate a project:
+RUN: fire-phoenix init <project-name>
+
+Happy Coding!!!
+```
+
 #### Option 1: Persistent Installation (Recommended)
 
 ```bash
 uv tool install --from "git+https://github.com/DauQuangThanh/fire-phoenix.git@v0.32.0" fire-phoenix
 fire-phoenix --version
-# Expected output: fire-phoenix 0.25.0
+# Expected output: fire-phoenix 0.32.0
 ```
 
 To upgrade later:
@@ -122,7 +134,7 @@ uv build && uv tool install --force "./dist/fire_phoenix-$(grep '^version' pypro
 **Next steps**
 
 - New to the workflow? Start with the [Quick Start Guide](./docs/quickstart.md).
-- Working in small atomic increments? See [Change Class (lightness control)](./docs/concepts/change-class.md) — lightness is a property of the task contract (mechanical / routine / consequential / critical per handbook v1.1 ch. 06 §3), not a parallel skill chain. The earlier `propose → apply → verify → archive` track was retired per `adr/0009`.
+- Working in small atomic increments? See [Change Class (lightness control)](./docs/concepts/change-class.md) — lightness is a property of the task contract (mechanical / routine / consequential / critical per handbook v1.1 ch. 06 §3), not a parallel skill chain. The earlier `propose → apply → verify → archive` track was retired.
 
 ### 2. Initialize a Project
 
@@ -265,7 +277,7 @@ They do **not** facilitate standups, sprint planning, or retrospectives; intervi
 
 ## Slash Commands
 
-After `fire-phoenix init`, your AI coding agent gains access to the slash commands listed below. All supported agents use the bare `/<skill>` invocation format (per [ADR-0003](https://github.com/DauQuangThanh/fire-phoenix/blob/main/adr/0003-drop-fire-phoenix-skill-prefix.md)).
+After `fire-phoenix init`, your AI coding agent gains access to the slash commands listed below. All supported agents use the bare `/<skill>` invocation format.
 
 ### Core Commands
 
@@ -407,7 +419,7 @@ See the [Presets reference](docs/reference/presets.md) for resolution order and 
 
 ### Workflows — Orchestrate Multi-Step Sequences
 
-**Workflows** chain commands, prompts, and human checkpoints (`command`/`prompt`/`gate`) into repeatable linear sequences, with pause/resume from the exact step where execution stopped. The engine is a linear verb executor (`adr/0049`) — no conditional/loop/fan-out control flow and no shell step.
+**Workflows** chain commands, prompts, and human checkpoints (`command`/`prompt`/`gate`) into repeatable linear sequences, with pause/resume from the exact step where execution stopped. The engine is a linear verb executor — no conditional/loop/fan-out control flow and no shell step.
 
 ```bash
 # Discover and install
