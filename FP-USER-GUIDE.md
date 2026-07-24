@@ -106,6 +106,8 @@ fire-phoenix init bookshelf --integration claude
 fire-phoenix init . --archetype brownfield
 ```
 
+Brownfield init also runs a deterministic, read-only probe of what is already there (languages, build manifests, test dirs, git age — mechanical facts only, no inference) and records the findings for you: the `STATUS.md` "What was here at init time" snapshot is pre-filled with `OBSERVED:` facts, declared build/test/lint commands land in the `commands:` block of `.fire-phoenix/context.yml`, and a pre-existing docs directory is noted as `paths.existing_docs`. The archetype itself is recorded in `context.yml`, so later re-inits and every agent session know the project is brownfield — even if your project already had its own `CLAUDE.md`/`AGENTS.md` (which init never overwrites), the refreshed managed block at the end of that file carries the brownfield discipline rules.
+
 **Migrating a legacy system to a new implementation?** Use `--archetype migration`. It composes the brownfield source-archaeology scaffold with a greenfield target and stamps a **non-waivable parity obligation** into `PRODUCT.md` / `STATUS.md` — every migrated capability must pass a parity ledger before its old path is frozen, and the ledger never closes while the old path is live. The Next-Steps recipe walks recover → risk-map → seam-analysis → per-slice parity/reconciliation → gated cutover:
 
 ```bash
@@ -367,7 +369,7 @@ fire-phoenix workflow add viet-paracel
 Three workflows ship with Fire Phoenix:
 
 - `viet-paracel` — the full IDD cycle: intent, then acceptance criteria, plan, taskify, test-cases, and implement, with a review gate between stages.
-- `brownfield-cycle` — reverse-engineer an existing system (codebase scan, dependency map, risk map, behaviour characterisation) behind an archaeology gate, then recover-spec through to implement.
+- `brownfield-cycle` — reverse-engineer an existing system (inventory of what exists, codebase scan, dependency map, risk map, behaviour characterisation) behind an archaeology gate, then recover-spec through to implement.
 - `migration-slice` — migrate one behaviour slice under evidence gates, through to a named-approver cutover sign-off.
 
 Trigger a workflow by its ID, passing its inputs as `key=value` pairs with `--input` (short form `-i`), once per value:
@@ -612,6 +614,20 @@ A curated map of the most-used skills by phase and role — invoke any as a `/<n
 - `recover-intent` / `recover-spec` — reconstruct intent (from a supplied doc) and spec (from a named module), each row tagged OBSERVED / INFERRED / UNKNOWN.
 - `characterise-behaviour` — pin OBSERVED legacy behaviour before any change.
 - `parity-ledger` — an old-vs-new behaviour ledger that gates a migration cutover.
+
+**Which discovery skill do I run, and when?** On an existing codebase the discovery skills form a ladder — each output feeds the next, and they answer different questions:
+
+| Order | Skill | Question it answers | Primary output |
+|---|---|---|---|
+| 1 | `inventory-existing` | *What exists?* (OBSERVED-only census, no interpretation) | `docs/inventory/initial-inventory-<date>.md` + the `STATUS.md` "what was here" snapshot |
+| 2 | `codebase-scan` | *What is it made of?* (languages, frameworks, entry points, hot paths) | `docs/analysis/codebase-scan.md` — seeds every deeper scan |
+| 3 | `architecture-extraction` | *How is it structured?* (containers, integrations, data flow; drift vs any existing docs recorded as findings) | `docs/architecture/extracted.md` |
+| 4 | `dependency-map` | *What depends on what?* (module graph + external deps with risk flags; needs the scan) | `docs/analysis/dependencies.md` |
+| 5 | `recover-intent` / `recover-spec` | *Why does it exist / what must stay true?* (L1 from a supplied doc / L2 from a named module) | `docs/intents/recovered/…` + rows in the capabilities index `docs/baseline/capabilities.md` |
+| 6 | `characterise-behaviour` | *What exactly does it do today?* (pinned as tests before any change) | `tests/characterisation/…` checklist |
+| 7 | `project-map` | *Where does everything live?* (closing step — the next session starts oriented) | annotated tree in every root context file |
+
+The `technical-analyst` subagent orchestrates steps 2-4 (plus API docs) and closes with 7. Naming note: `docs/baseline/` is the living spec head (including `capabilities.md`, the recovered-capabilities index) — distinct from the `baseline` *skill*, which snapshots governance artefacts for change control.
 
 **Delivery, ops & governance**
 
