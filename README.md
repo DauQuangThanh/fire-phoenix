@@ -4,7 +4,7 @@
 </div>
 
 <p align="center">
-    <strong>An open-source AI delivery platform that spans the complete software development lifecycle — from requirements and architecture through implementation, testing, code review, security, and operations. 78 reusable agent skills and 14 role-agent subagents, with native support for greenfield, brownfield, and migration archetypes — bootstrapped into 7 supported AI coding agents with a single command.</strong>
+    <strong>An open-source AI delivery platform that spans the complete software development lifecycle — from requirements and architecture through implementation, testing, code review, security, and operations. 81 reusable agent skills and 15 role-agent subagents, with native support for greenfield, brownfield, and migration archetypes — bootstrapped into 7 supported AI coding agents with a single command.</strong>
 </p>
 
 <p align="center">
@@ -12,8 +12,8 @@
     <a href="https://github.com/DauQuangThanh/fire-phoenix/stargazers"><img src="https://img.shields.io/github/stars/DauQuangThanh/fire-phoenix?style=social" alt="GitHub Stars"/></a>
     <a href="https://github.com/DauQuangThanh/fire-phoenix/blob/main/LICENSE"><img src="https://img.shields.io/github/license/DauQuangThanh/fire-phoenix" alt="License"/></a>
     <a href="https://dauquangthanh.github.io/fire-phoenix/"><img src="https://img.shields.io/badge/docs-GitHub_Pages-blue" alt="Documentation"/></a>
-    <img src="https://img.shields.io/badge/skills-78-brightgreen" alt="78 Skills"/>
-    <img src="https://img.shields.io/badge/subagents-14-blue" alt="14 Subagents"/>
+    <img src="https://img.shields.io/badge/skills-81-brightgreen" alt="81 Skills"/>
+    <img src="https://img.shields.io/badge/subagents-15-blue" alt="15 Subagents"/>
     <img src="https://img.shields.io/badge/AI_agents-7-purple" alt="7 AI Coding Agents"/>
 </p>
 
@@ -21,31 +21,60 @@
 
 ## Table of Contents
 
+- [Table of Contents](#table-of-contents)
 - [Overview](#overview)
 - [What is Intent-Driven Development?](#what-is-intent-driven-development)
 - [Getting Started](#getting-started)
+  - [1. Install Fire Phoenix](#1-install-fire-phoenix)
+    - [Option 1: Pre-built Wheel (Offline-Friendly)](#option-1-pre-built-wheel-offline-friendly)
+    - [Option 2: Enterprise / Air-Gapped](#option-2-enterprise--air-gapped)
+    - [Option 3: Persistent Installation (Recommended)](#option-3-persistent-installation-recommended)
+    - [Option 4: One-time Usage](#option-4-one-time-usage)
+    - [Option 5: From Local Source](#option-5-from-local-source)
+  - [2. Initialize a Project](#2-initialize-a-project)
+  - [3. Establish Project Principles](#3-establish-project-principles)
+  - [4. Define the Specification](#4-define-the-specification)
+  - [5. Produce a Technical Plan](#5-produce-a-technical-plan)
+  - [6. Decompose into Tasks](#6-decompose-into-tasks)
+  - [7. Execute the Implementation](#7-execute-the-implementation)
 - [Supported AI Coding Agents](#supported-ai-coding-agents)
 - [Role Agents](#role-agents)
   - [Execution Modes](#execution-modes)
   - [Artefact Layout](#artefact-layout)
+  - [Scope: AI Authoring Only](#scope-ai-authoring-only)
 - [Slash Commands](#slash-commands)
   - [Core Commands](#core-commands)
   - [Optional Commands](#optional-commands)
-  - [Waterfall / Large-Project Commands](#waterfall-large-project-commands)
+  - [Waterfall / Large-Project Commands](#waterfall--large-project-commands)
   - [Document Conversion Commands](#document-conversion-commands)
 - [CLI Reference](#cli-reference)
 - [Customization: Extensions, Presets, and Workflows](#customization-extensions-presets-and-workflows)
+  - [Extensions — Add New Capabilities](#extensions--add-new-capabilities)
+    - [Configure](#configure)
+    - [Custom Catalogs](#custom-catalogs)
+  - [Presets — Customize Existing Workflows](#presets--customize-existing-workflows)
+  - [Workflows — Orchestrate Multi-Step Sequences](#workflows--orchestrate-multi-step-sequences)
+  - [Choosing Between Mechanisms](#choosing-between-mechanisms)
 - [Core Philosophy](#core-philosophy)
 - [Development Phases](#development-phases)
 - [Prerequisites](#prerequisites)
 - [Detailed Walkthrough](#detailed-walkthrough)
+  - [Step 0: Bootstrap](#step-0-bootstrap)
+  - [Step 1: Establish Project Principles](#step-1-establish-project-principles)
+  - [Step 2: Create the Specification](#step-2-create-the-specification)
+  - [Step 3: Clarify the Specification](#step-3-clarify-the-specification)
+  - [Step 4: Generate the Plan](#step-4-generate-the-plan)
+  - [Step 5: Validate the Plan](#step-5-validate-the-plan)
+  - [Step 6: Generate the Task Breakdown](#step-6-generate-the-task-breakdown)
+  - [Step 7: Implement](#step-7-implement)
 - [Troubleshooting](#troubleshooting)
+  - [Git Credential Manager on Linux](#git-credential-manager-on-linux)
 - [Support](#support)
 - [License](#license)
 
 ## Overview
 
-Fire Phoenix is a command-line installer that bootstraps projects for the full software development lifecycle. A single `fire-phoenix init` provisions 78 role-specific AI skills, 14 role-based custom subagents, and a deep customization layer of extensions, presets, and workflows into your project. `fire-phoenix init` scaffolds the L1-L4 IDD artefact hierarchy (`PRODUCT.md` / `STATUS.md` / `CLAUDE.md` / `specs/` / `contracts/` / `adr/` / `decisions.md`) and supports greenfield, brownfield, and migration projects first-class via `--archetype {greenfield,brownfield,migration}`. It also installs a governance guardrail + audit hook pack — a protected-path deny and a tool-call audit trail — into each selected AI tool's native hook config, on by default (see [Governance Hooks](docs/reference/governance-hooks.md)).
+Fire Phoenix is a command-line installer that bootstraps projects for the full software development lifecycle. A single `fire-phoenix init` provisions 81 role-specific AI skills, 15 role-based custom subagents, and a deep customization layer of extensions, presets, and workflows into your project. `fire-phoenix init` scaffolds the L1-L4 IDD artefact hierarchy (`PRODUCT.md` / `STATUS.md` / `CLAUDE.md` / `specs/` / `contracts/` / `adr/` / `decisions.md`) and supports greenfield, brownfield, and migration projects first-class via `--archetype {greenfield,brownfield,migration}`. It also installs a governance guardrail + audit hook pack — a protected-path deny and a tool-call audit trail — into each selected AI tool's native hook config, on by default (see [Governance Hooks](docs/reference/governance-hooks.md)).
 
 The platform covers every delivery phase — requirements gathering, architecture and design, implementation, testing, code review, security review, operations, project management, and formal Waterfall deliverables — across both Agile and hybrid methodologies. It runs offline once installed, integrates with seven AI coding agents across CLI and IDE environments, and works consistently on macOS, Linux, and Windows.
 
@@ -65,64 +94,51 @@ You stay in charge of the *what* and the *why*. The agent handles most of the *h
 
 > **Important:** The only official, maintained Fire Phoenix packages are published from this GitHub repository. Packages of the same name on PyPI are **not** affiliated with this project. Always install directly from GitHub.
 
+#### Option 1: Pre-built Wheel (Offline-Friendly)
+
+Every GitHub Release ships a pre-built wheel, an sdist, and a `SHA256SUMS` file. The wheel bundles every template, preset, extension, and workflow Fire Phoenix provides:
+
 ```bash
-Install uv python package manager (https://docs.astral.sh/uv/getting-started/installation/)
-
-Install fire_phoenix framework:
-RUN: uv tool install --force fire_phoenix-0.32.0-py3-none-any.whl
-
-Initiate a project:
-RUN: fire-phoenix init <project-name>
-
-Happy Coding!!!
+# Download from https://github.com/DauQuangThanh/fire-phoenix/releases/tag/v0.34.0
+uv tool install --force ./fire_phoenix-0.34.0-py3-none-any.whl
+# or, with pip
+pip install ./fire_phoenix-0.34.0-py3-none-any.whl
 ```
 
-#### Option 1: Persistent Installation (Recommended)
+Both `fire-phoenix init` and `fire-phoenix upgrade` run fully offline once the wheel is installed.
+
+#### Option 2: Enterprise / Air-Gapped
+
+For environments without PyPI or GitHub access, see the [Offline / Air-Gapped Installation guide](./docs/installation.md) for instructions on building portable wheel bundles from a connected machine.
+
+#### Option 3: Persistent Installation (Recommended)
 
 ```bash
-uv tool install --from "git+https://github.com/DauQuangThanh/fire-phoenix.git@v0.32.0" fire-phoenix
+uv tool install --from "git+https://github.com/DauQuangThanh/fire-phoenix.git@v0.34.0" fire-phoenix
 fire-phoenix --version
-# Expected output: fire-phoenix 0.32.0
 ```
 
 To upgrade later:
 
 ```bash
-uv tool install --force --from "git+https://github.com/DauQuangThanh/fire-phoenix.git@v0.32.0" fire-phoenix
+uv tool install --force --from "git+https://github.com/DauQuangThanh/fire-phoenix.git@v0.34.0" fire-phoenix
 ```
 
 See the [Upgrade Guide](./docs/upgrade.md) for full upgrade instructions, and the [GitHub Releases page](https://github.com/DauQuangThanh/fire-phoenix/releases) for newer tags as they ship.
 
-#### Option 2: One-time Usage
+#### Option 4: One-time Usage
 
 ```bash
-uvx --from "git+https://github.com/DauQuangThanh/fire-phoenix.git@v0.32.0" fire-phoenix init <PROJECT_NAME>
+uvx --from "git+https://github.com/DauQuangThanh/fire-phoenix.git@v0.34.0" fire-phoenix init <PROJECT_NAME>
 ```
-
-#### Option 3: Pre-built Wheel (Offline-Friendly)
-
-Every GitHub Release ships a pre-built wheel, an sdist, and a `SHA256SUMS` file. The wheel bundles every template, preset, extension, and workflow Fire Phoenix provides:
-
-```bash
-# Download from https://github.com/DauQuangThanh/fire-phoenix/releases/tag/v0.32.0
-uv tool install ./fire_phoenix-0.32.0-py3-none-any.whl
-# or, with pip
-pip install ./fire_phoenix-0.32.0-py3-none-any.whl
-```
-
-Both `fire-phoenix init` and `fire-phoenix upgrade` run fully offline once the wheel is installed.
-
-#### Option 4: Enterprise / Air-Gapped
-
-For environments without PyPI or GitHub access, see the [Offline / Air-Gapped Installation guide](./docs/installation.md) for instructions on building portable wheel bundles from a connected machine.
 
 #### Option 5: From Local Source
 
 ```bash
-git clone --branch v0.32.0 https://github.com/DauQuangThanh/fire-phoenix.git
+git clone --branch v0.34.0 https://github.com/DauQuangThanh/fire-phoenix.git
 cd fire-phoenix
 uv build
-uv tool install ./dist/fire_phoenix-0.32.0-py3-none-any.whl
+uv tool install ./dist/fire_phoenix-0.34.0-py3-none-any.whl
 ```
 
 To rebuild and reinstall after local changes:
@@ -217,7 +233,7 @@ For the full matrix — keys, folder layouts, and skills directories — see the
 
 ## Role Agents
 
-In addition to the IDD slash commands, `fire-phoenix init` installs **14 role-based custom subagents** into your AI tool's agents directory (for example, `.claude/agents/`, `.gemini/agents/`, or `.cursor/agents/`). For small atomic changes, IDD uses **change-class lightness** as a property of the task contract (mechanical / routine / consequential / critical per handbook v1.1 ch. 06 §3) — see [Change Class](./docs/concepts/change-class.md). Each subagent is an **AI authoring aid** scoped to a specific role; it delegates to a curated set of skills and writes artefacts to a known location under `docs/`.
+In addition to the IDD slash commands, `fire-phoenix init` installs **15 role-based custom subagents** into your AI tool's agents directory (for example, `.claude/agents/`, `.gemini/agents/`, or `.cursor/agents/`). For small atomic changes, IDD uses **change-class lightness** as a property of the task contract (mechanical / routine / consequential / critical per handbook v1.1 ch. 06 §3) — see [Change Class](./docs/concepts/change-class.md). Each subagent is an **AI authoring aid** scoped to a specific role; it delegates to a curated set of skills and writes artefacts to a known location under `docs/`.
 
 | Agent                    | Artefacts                                                            | Delegates to (selection)                                                                                                                  |
 | ------------------------ | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
@@ -229,6 +245,7 @@ In addition to the IDD slash commands, `fire-phoenix init` installs **14 role-ba
 | `bug-fixer`              | Bug triage, fixes, regression tests, change log                      | `implement`, `verify-tasks`, `bug-triage`, `regression-tests`, `change-log`                                      |
 | `code-quality-reviewer`  | Maintainability review, complexity and SOLID/DRY/Fire Phoenix findings       | `standardize`, `quality-review`                                                                                                 |
 | `code-security-reviewer` | OWASP Top 10 / STRIDE review, dependency audit                       | `security-review`, `dependency-audit`                                                                                           |
+| `asset-security-reviewer` | Security-reviews the installed agent assets themselves (subagent/skill bodies, scripts, hooks) for injection, malicious scripts, credential theft, supply-chain, privilege escalation | `agent-asset-security-review`, `dependency-audit`                                                             |
 | `devops`                 | CI/CD, IaC, containers, observability, deployment runbook, ops handover, migration runbook | `cicd-pipeline`, `infrastructure-plan`, `containerization`, `observability-plan`, `deployment-strategy`, `handover`, `data-migration-plan` |
 | `product-owner`          | Backlog, acceptance criteria, roadmap, GitHub issues                 | `tasks-to-issues`, `backlog`, `acceptance-criteria`, `roadmap`                                                         |
 | `project-manager`        | Project plan, WBS, risk register, phase gates, baselines, status reports, change control | `taskify`, `feature-checklist`, `standardize`, `project-planning`, `work-breakdown-structure`, `phase-gate`, `baseline`, `risk-register`, `status-report`, `change-control` |
