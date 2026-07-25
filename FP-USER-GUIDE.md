@@ -505,7 +505,7 @@ Everything above is the *narrative*; this is the *map*. Fire Phoenix has nine to
 
 | Command | What it does |
 |---|---|
-| `fire-phoenix init [PATH]` | Scaffold a project. Flags: `--integration <id>` (skip the picker), `--archetype {greenfield,brownfield,migration}`, `--no-scaffold` (skip the governance file hierarchy), `--no-git` (skip git init + auto-commit), `--force` (write into a non-empty dir), `--ignore-agent-tools`, and the four calibration flags `--lang-output` / `--lang-interaction` / `--non-tech-role-level` / `--tech-role-level`. |
+| `fire-phoenix init [PATH]` | Scaffold a project. Flags: `--integration <id>` (skip the picker; repeatable, and accepts a comma-separated list — `--integration claude,copilot`), `--archetype {greenfield,brownfield,migration}`, `--no-scaffold` (skip the governance file hierarchy), `--no-git` (skip git init + auto-commit), `--force` (write into a non-empty dir), `--ignore-agent-tools`, and the four calibration flags `--lang-output` / `--lang-interaction` / `--non-tech-role-level` / `--tech-role-level`. |
 | `fire-phoenix version` | Print the version and system information. |
 | `fire-phoenix metrics` | Compute the five delivery-loop metrics (gate latency, loop time, contract rework rate, escape rate, evidence completeness) from the project's own artefacts — contracts, decisions, and git history. Flags: `--since`, `--by-class`, `--json`. See *Measuring the Delivery Loop* above. |
 
@@ -543,7 +543,7 @@ Manage which AI coding agents the project targets, after `init`.
 | `integration install <id>` | Install an integration into the project. |
 | `integration switch <from> <to>` | Switch from one integration to another. |
 | `integration uninstall <id>` | Uninstall an integration, preserving any files you modified. |
-| `integration upgrade <id>` | Re-install with diff-aware file handling to pick up newer bundled assets. |
+| `integration upgrade <id>` | Re-install with diff-aware file handling to pick up newer bundled assets. Also refreshes the guardrail + audit hook pack. Files you modified are kept, and a config fire-phoenix merged into is never deleted. |
 
 ### Customization: presets & extensions
 

@@ -4,7 +4,7 @@
 </div>
 
 <p align="center">
-    <strong>An open-source AI delivery platform that spans the complete software development lifecycle — from requirements and architecture through implementation, testing, code review, security, and operations. 81 reusable agent skills and 15 role-agent subagents, with native support for greenfield, brownfield, and migration archetypes — bootstrapped into 7 supported AI coding agents with a single command.</strong>
+    <strong>An open-source AI delivery platform that spans the complete software development lifecycle — from requirements and architecture through implementation, testing, code review, security, and operations. 81 reusable agent skills and 15 role-agent subagents, with native support for greenfield, brownfield, and migration archetypes — bootstrapped into 5 supported AI coding agents with a single command.</strong>
 </p>
 
 <p align="center">
@@ -14,7 +14,7 @@
     <a href="https://dauquangthanh.github.io/fire-phoenix/"><img src="https://img.shields.io/badge/docs-GitHub_Pages-blue" alt="Documentation"/></a>
     <img src="https://img.shields.io/badge/skills-81-brightgreen" alt="81 Skills"/>
     <img src="https://img.shields.io/badge/subagents-15-blue" alt="15 Subagents"/>
-    <img src="https://img.shields.io/badge/AI_agents-7-purple" alt="7 AI Coding Agents"/>
+    <img src="https://img.shields.io/badge/AI_agents-5-purple" alt="5 AI Coding Agents"/>
 </p>
 
 ---
@@ -76,7 +76,7 @@
 
 Fire Phoenix is a command-line installer that bootstraps projects for the full software development lifecycle. A single `fire-phoenix init` provisions 81 role-specific AI skills, 15 role-based custom subagents, and a deep customization layer of extensions, presets, and workflows into your project. `fire-phoenix init` scaffolds the L1-L4 IDD artefact hierarchy (`PRODUCT.md` / `STATUS.md` / `CLAUDE.md` / `specs/` / `contracts/` / `adr/` / `decisions.md`) and supports greenfield, brownfield, and migration projects first-class via `--archetype {greenfield,brownfield,migration}`. It also installs a governance guardrail + audit hook pack — a protected-path deny and a tool-call audit trail — into each selected AI tool's native hook config, on by default (see [Governance Hooks](docs/reference/governance-hooks.md)).
 
-The platform covers every delivery phase — requirements gathering, architecture and design, implementation, testing, code review, security review, operations, project management, and formal Waterfall deliverables — across both Agile and hybrid methodologies. It runs offline once installed, integrates with seven AI coding agents across CLI and IDE environments, and works consistently on macOS, Linux, and Windows.
+The platform covers every delivery phase — requirements gathering, architecture and design, implementation, testing, code review, security review, operations, project management, and formal Waterfall deliverables — across both Agile and hybrid methodologies. It runs offline once installed, integrates with five AI coding agents across CLI and IDE environments, and works consistently on macOS, Linux, and Windows.
 
 <img src="./media/frwk.png" alt="Fire Phoenix Logo" width="100%" height="100%"/>
 
@@ -99,10 +99,10 @@ You stay in charge of the *what* and the *why*. The agent handles most of the *h
 Every GitHub Release ships a pre-built wheel, an sdist, and a `SHA256SUMS` file. The wheel bundles every template, preset, extension, and workflow Fire Phoenix provides:
 
 ```bash
-# Download from https://github.com/DauQuangThanh/fire-phoenix/releases/tag/v0.34.0
-uv tool install --force ./fire_phoenix-0.34.0-py3-none-any.whl
+# Download from https://github.com/DauQuangThanh/fire-phoenix/releases/tag/v1.0.0
+uv tool install --force ./fire_phoenix-1.0.0-py3-none-any.whl
 # or, with pip
-pip install ./fire_phoenix-0.34.0-py3-none-any.whl
+pip install ./fire_phoenix-1.0.0-py3-none-any.whl
 ```
 
 Both `fire-phoenix init` and `fire-phoenix upgrade` run fully offline once the wheel is installed.
@@ -114,14 +114,14 @@ For environments without PyPI or GitHub access, see the [Offline / Air-Gapped In
 #### Option 3: Persistent Installation (Recommended)
 
 ```bash
-uv tool install --from "git+https://github.com/DauQuangThanh/fire-phoenix.git@v0.34.0" fire-phoenix
+uv tool install --from "git+https://github.com/DauQuangThanh/fire-phoenix.git@v1.0.0" fire-phoenix
 fire-phoenix --version
 ```
 
 To upgrade later:
 
 ```bash
-uv tool install --force --from "git+https://github.com/DauQuangThanh/fire-phoenix.git@v0.34.0" fire-phoenix
+uv tool install --force --from "git+https://github.com/DauQuangThanh/fire-phoenix.git@v1.0.0" fire-phoenix
 ```
 
 See the [Upgrade Guide](./docs/upgrade.md) for full upgrade instructions, and the [GitHub Releases page](https://github.com/DauQuangThanh/fire-phoenix/releases) for newer tags as they ship.
@@ -129,16 +129,16 @@ See the [Upgrade Guide](./docs/upgrade.md) for full upgrade instructions, and th
 #### Option 4: One-time Usage
 
 ```bash
-uvx --from "git+https://github.com/DauQuangThanh/fire-phoenix.git@v0.34.0" fire-phoenix init <PROJECT_NAME>
+uvx --from "git+https://github.com/DauQuangThanh/fire-phoenix.git@v1.0.0" fire-phoenix init <PROJECT_NAME>
 ```
 
 #### Option 5: From Local Source
 
 ```bash
-git clone --branch v0.34.0 https://github.com/DauQuangThanh/fire-phoenix.git
+git clone --branch v1.0.0 https://github.com/DauQuangThanh/fire-phoenix.git
 cd fire-phoenix
 uv build
-uv tool install ./dist/fire_phoenix-0.34.0-py3-none-any.whl
+uv tool install ./dist/fire_phoenix-1.0.0-py3-none-any.whl
 ```
 
 To rebuild and reinstall after local changes:
@@ -225,15 +225,15 @@ Use **`/implement`** to deliver the feature.
 
 ## Supported AI Coding Agents
 
-Fire Phoenix integrates with seven AI coding agents across CLI and IDE environments:
+Fire Phoenix integrates with five AI coding agents across CLI and IDE environments:
 
-Claude Code, GitHub Copilot, Cursor Agent, OpenCode, Kiro, Gemini CLI, and Codex CLI.
+Claude Code, GitHub Copilot, Cursor Agent, OpenCode, and Codex CLI.
 
 For the full matrix — keys, folder layouts, and skills directories — see the [Supported AI Coding Agent Integrations guide](docs/reference/integrations.md). Run `fire-phoenix integration list` to enumerate the integrations available in your installed version.
 
 ## Role Agents
 
-In addition to the IDD slash commands, `fire-phoenix init` installs **15 role-based custom subagents** into your AI tool's agents directory (for example, `.claude/agents/`, `.gemini/agents/`, or `.cursor/agents/`). For small atomic changes, IDD uses **change-class lightness** as a property of the task contract (mechanical / routine / consequential / critical per handbook v1.1 ch. 06 §3) — see [Change Class](./docs/concepts/change-class.md). Each subagent is an **AI authoring aid** scoped to a specific role; it delegates to a curated set of skills and writes artefacts to a known location under `docs/`.
+In addition to the IDD slash commands, `fire-phoenix init` installs **15 role-based custom subagents** into your AI tool's agents directory (for example, `.claude/agents/` or `.cursor/agents/`). For small atomic changes, IDD uses **change-class lightness** as a property of the task contract (mechanical / routine / consequential / critical per handbook v1.1 ch. 06 §3) — see [Change Class](./docs/concepts/change-class.md). Each subagent is an **AI authoring aid** scoped to a specific role; it delegates to a curated set of skills and writes artefacts to a known location under `docs/`.
 
 | Agent                    | Artefacts                                                            | Delegates to (selection)                                                                                                                  |
 | ------------------------ | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
@@ -351,7 +351,7 @@ For complete command details, options, and examples, see the [CLI Reference](doc
 
 > **Start here:** the [Customization Model](./docs/concepts/customization-model.md) is the canonical mental-model page. It maps every customization request ("I want to add a command", "I want to change a template", "I want to chain skills together", "I want to target a new AI agent") to one of six surfaces — **skills**, **subagents**, **presets**, **extensions**, **workflows (engine)**, and **integrations** — with a decision tree and a per-surface comparison table. The summary below is a one-screen overview; the concept page is the authoritative entry point.
 
-In short: **presets override the templates and command bodies** of existing skills (no new commands). **Extensions add new commands and hooks**. **Workflows orchestrate linear multi-step YAML sequences** with checkpoints and resume. **Integrations target one of the seven supported AI agents** (Claude Code, GitHub Copilot, Cursor, OpenCode, Kiro, Gemini CLI, Codex). Pick the surface that matches your need — the concept page links to per-surface references and authoring tutorials.
+In short: **presets override the templates and command bodies** of existing skills (no new commands). **Extensions add new commands and hooks**. **Workflows orchestrate linear multi-step YAML sequences** with checkpoints and resume. **Integrations target one of the five supported AI agents** (Claude Code, GitHub Copilot, Cursor, OpenCode, Codex). Pick the surface that matches your need — the concept page links to per-surface references and authoring tutorials.
 
 Fire Phoenix can be tailored through three complementary mechanisms — **extensions**, **presets**, and **workflows** — plus project-local overrides for one-off adjustments.
 
@@ -511,11 +511,9 @@ fire-phoenix init bookshelf
 fire-phoenix init .
 fire-phoenix init --here --force      # merge into a non-empty directory
 
-# Specify integrations non-interactively
+# Specify integrations non-interactively (repeat the flag, or comma-separate)
 fire-phoenix init bookshelf --integration claude --integration copilot
-
-# Use the generic integration for an unlisted agent
-fire-phoenix init bookshelf --integration generic --integration-options="--commands-dir .myagent/commands"
+fire-phoenix init bookshelf --integration claude,copilot
 
 # Skip CLI tool checks
 fire-phoenix init bookshelf --integration claude --ignore-agent-tools
